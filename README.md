@@ -23,3 +23,6 @@ On Paste, converts all valid quickcodes into html element (with plan to load vie
 This is a poor-mans version of WordPress ShortCode Views for now, but the idea will be to produce a platform agnostic TinyMCE view render to make editing experience more visual; without being so opinionated as WP team have been. 
 
 Comments, PR's, Issues welcome!
+
+## Warranty etc
+The author accepts no liability, and offers no warranty, or expectation of service or support for this code, any effects it may have. If you run it, you do so at your own risk. Help us to make it better by contributing by telling us of problems you have, suggestion, submitting pull requests with code changes. CD2 is a small business, we are not Microsoft, please bear this in mind with response times etc. Premium support and integration advice can be provided, go to [our website](https://www.codesign2.co.uk), and contact us.
