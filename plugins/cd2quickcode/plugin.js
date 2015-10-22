@@ -11,17 +11,17 @@
 	window.cd2 = window.cd2 || {};
 	window.cd2.mce = window.cd2.mce || {};
 	window.cd2.mce.transformQuickCode = function(content) {
-		var matches = content.match(/{(?:[^\{,^\},^ ]+)}/g); // match {*} containing any chars but { & }
+		var matches = content.match(/{(?:[^{,^}]+)}/g); // match {*} containing any chars but { & }
 		if( matches !== null ) {
 			matches.map( function(e) {
-				content = content.replace(e, '<div class="cd2-mce-view cd2-quick-code" data-sc="'+btoa(e)+'"><div class="inner" contenteditable="false">&nbsp;</div></div>');
+				content = content.replace(e, '<span class="cd2-mce-view cd2-quick-code" contenteditable="false" data-sc="'+btoa(e)+'"><span class="inner">&nbsp;</span></span>');
 			} );
 		}
 		return content;
 	};
 	window.cd2.mce.restoreQuickCode = function(ed) {
 		// do the opposite
-		var matches = ed.contentDocument.querySelectorAll('.cd2-quick-code'), i;
+		var matches = ed.contentDocument.querySelectorAll('.cd2-mce-view'), i;
 		for( i = 0; i<matches.length; ++i) {
 			matches[i].outerHTML = atob(matches[i].dataset.sc);
 		}
@@ -45,6 +45,15 @@
 					window.cd2.mce.restoreQuickCode(e.target);
 				}
 			});
+			
+			(ed.contentStyles = ed.contentStyles || [])
+				.push(
+					[
+					".cd2-mce-view { position: relative; display: inline-block; min-width: 10em; min-height: 1em; border: 1px dashed; }",
+					".cd2-mce-view .toolbar { position: absolute; top: -2em; margin: 0 auto; background-color: #ccc; display: inline-block; min-width: 10em; min-height: 1em; }"
+					]
+				);
+
 			console.log(ed);
 		}
 	});
