@@ -15,7 +15,7 @@ gets replaced with
 <div class="cd2-mce-view cd2-quick-code" data-sc="{btoaofquickcode}"><div class="inner" contenteditable="false">&nbsp;</div></div>
 ```
 
-On Clipboard copy or getContent() Event, returns original text including quickcode, so that updated details can be presented
+On ~~Clipboard copy~~ *(Deprecated for now)* or getContent() Event, returns original text including quickcode, so that updated details can be presented
 
 On Paste, converts all valid quickcodes into html element (with plan to load view data via third-party mechanism)
 
