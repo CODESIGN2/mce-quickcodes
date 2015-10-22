@@ -19,30 +19,38 @@
 		}
 		return content;
 	};
-	window.cd2.mce.restoreQuickCode = function(ed) {
+	window.cd2.mce.restoreQuickCode = function(content) {
 		// do the opposite
-		var matches = ed.contentDocument.querySelectorAll('.cd2-mce-view'), i;
+
+		// uses temporary div to query DOM
+		var elem = document.createElement('div');
+		elem.innerHTML = content;
+
+		var matches = elem.querySelectorAll('.cd2-mce-view'), i;
 		for( i = 0; i<matches.length; ++i) {
 			matches[i].outerHTML = atob(matches[i].dataset.sc);
 		}
+
+		// cleanup before return
+		content = elem.innerHTML;
+		delete elem;
+		return content;
 	};
 
 	tinymce.create('tinymce.plugins.cd2quickcodeplugin', {
 		init : function(ed) {
+			
 			ed.on('beforeSetContent', function(e) {
 				e.content = window.cd2.mce.transformQuickCode(e.content);
 			});
-			ed.on('beforeGetContent', function(e) {
-				e.content = window.cd2.mce.restoreQuickCode(e.target);
-			});
-
+			
 			ed.on('postProcess', function(e) {
 				if (e.set) {
 					e.content = window.cd2.mce.transformQuickCode(e.content);
 				}
 
 				if (e.get) {
-					window.cd2.mce.restoreQuickCode(e.target);
+					e.content = window.cd2.mce.restoreQuickCode(e.content);
 				}
 			});
 			
@@ -54,7 +62,7 @@
 					]
 				);
 
-			console.log(ed);
+			//console.log(ed);
 		}
 	});
 	tinymce.PluginManager.add('cd2quickcode', tinymce.plugins.cd2quickcodeplugin);
